@@ -57,8 +57,8 @@ module.exports.handleEvent = function ({ api, event, getText }) {
         : command.config.hasPermission === 1
         ? getText("adminGroup")
         : getText("adminBot"),
+      command.config.credits
     ),
-
     threadID,
     messageID
   );
@@ -160,6 +160,11 @@ module.exports.run = async function ({ api, event, args, getText }) {
     const axios = require("axios");
     const fs = require("fs-extra");
     const imgP = [];
+    const img = [
+      "https://i.ibb.co/VcNdjtmr/help.png"
+    ];
+    const path = __dirname + "/cache/menu.png";
+    const rdimg = img[Math.floor(Math.random() * img.length)];
 
     const { data } = await axios.get(rdimg, {
       responseType: "arraybuffer",

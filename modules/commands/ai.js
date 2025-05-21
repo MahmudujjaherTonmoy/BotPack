@@ -1,5 +1,7 @@
 const { gpt } = require("gpti");
 
+const autoAIThreads = new Set();
+
 module.exports.config = {
   name: "ai",
   version: "1.1.0",
@@ -12,6 +14,25 @@ module.exports.config = {
   cooldowns: 5,
 };
 
+// Handles the auto on/off and triggers AI reply if enabled
+module.exports.handleEvent = async function({ api, event }) {
+  const { threadID, messageID, body } = event;
+  if (!body) return;
+
+  if (body.toLowerCase() === "ai on") {
+    autoAIThreads.add(threadID);
+    return api.sendMessage("🤖 AI auto-reply is now ON!", threadID, messageID);
+  }
+  if (body.toLowerCase() === "ai off") {
+    autoAIThreads.delete(threadID);
+    return api.sendMessage("🛑 AI auto-reply is now OFF.", threadID, messageID);
+  }
+  if (autoAIThreads.has(threadID)) {
+    return module.exports.run({ api, event, args: [body] });
+  }
+};
+
+// Main AI logic (used for both manual command and auto-reply)
 module.exports.run = async function ({ api, event, args }) {
   const prompt = args.join(" ");
 

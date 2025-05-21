@@ -17,7 +17,7 @@ module.exports.config = {
 module.exports.languages = {
   en: {
     moduleInfo:
-      "「 %1 」\n%2\n\n❯ Usage: %3\n❯ Category: %4\n❯ Waiting time: %5 seconds(s)\n❯ Permission: %6\n\n» Module code by %7 ",
+      "「 %1 」\n%2\n\n❯ Usage: %3\n❯ Category: %4\n❯ Waiting time: %5 seconds(s)\n❯ Permission: %6 ",
     helpList:
       `◖There are %1 commands and %2 categories on this bot.`,
     guideList:
@@ -57,8 +57,8 @@ module.exports.handleEvent = function ({ api, event, getText }) {
         : command.config.hasPermission === 1
         ? getText("adminGroup")
         : getText("adminBot"),
-      command.config.credits
     ),
+
     threadID,
     messageID
   );
@@ -160,11 +160,6 @@ module.exports.run = async function ({ api, event, args, getText }) {
     const axios = require("axios");
     const fs = require("fs-extra");
     const imgP = [];
-    const img = [
-      "https://i.ibb.co/VcNdjtmr/help.png"
-    ];
-    const path = __dirname + "/cache/menu.png";
-    const rdimg = img[Math.floor(Math.random() * img.length)];
 
     const { data } = await axios.get(rdimg, {
       responseType: "arraybuffer",

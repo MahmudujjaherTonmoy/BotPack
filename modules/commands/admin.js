@@ -2,7 +2,7 @@ module.exports.config = {
 	name: "admin",
 	version: "1.0.5",
 	hasPermssion: 0,
-	credits: "Mirai Team",
+	credits: "XAAV",
 	description: "Admin Settings",
   usePrefix: true,
 	commandCategory: "Admin",
